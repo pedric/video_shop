@@ -1,13 +1,7 @@
-const Joi = require('joi');
 const express = require('express');
 const mongoose = require('mongoose');
 const router = express.Router();
-
-const Customer = mongoose.model('Customer', new mongoose.Schema({
-    isGold: Boolean,
-    name: String,
-    phone: String
-}));
+const {Customer, validate } = require('../../models/customer');
 
 // GET
 router.get('/', async (req,res) => {
@@ -23,7 +17,7 @@ router.get('/:id', async (req,res) => {
 
 // POST
 router.post('/', async (req,res) => {
-  const {error} = validateCustomer(req.body);
+  const {error} = validate(req.body);
   if(error) res.status(400).send(error.details[0].message);
   let customer = new Customer({
     isGold: req.body.isGold,
@@ -37,7 +31,7 @@ router.post('/', async (req,res) => {
 // PUT
 router.put('/:id', async (req,res) => {
   console.log('PUT: ', req.body)
-  const {error} = validateCustomer(req.body);
+  const {error} = validate(req.body);
   if(error) res.status(400).res.send(error.details[0].message);
   const details = {
     isGold: req.body.isGold,
@@ -55,14 +49,5 @@ router.delete('/:id', async (req,res) => {
   if(!customer) res.status(404).send('No customer with that ID found');
   res.send(customer);
 });
-
-function validateCustomer(customer){
-  const schema = {
-    isGold: Joi.boolean(),
-    name: Joi.string().required(),
-    phone: Joi.string()
-  }
-  return Joi.validate(customer, schema);
-}
 
 module.exports = router;
