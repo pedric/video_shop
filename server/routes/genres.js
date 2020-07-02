@@ -6,8 +6,8 @@ const { Genre, validate } = require('../../models/genre');
 
 // GET
 router.get('/', async (req,res) => {
-  const genres = await Genre.find().sort('name');
-  res.send(genres);
+    const genres = await Genre.find().sort('name');
+    res.send(genres);
 });
 
 router.get('/:id', async (req,res) => {
