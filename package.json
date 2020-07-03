@@ -8,6 +8,9 @@
     "start": "node server",
     "start nodemon": "nodemon server"
   },
+  "engines":{
+    "node": "14.4.0"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/pedric/video_shop.git"

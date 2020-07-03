@@ -8,6 +8,7 @@ require('../startup/routes')(app);
 require('../startup/db')();
 require('../startup/config')();
 require('../startup/validation')();
+require('../startup/prod')(app);
 
 app.set('view engine', 'pug');
 app.set('views', './views')
