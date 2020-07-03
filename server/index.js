@@ -13,7 +13,9 @@ app.set('view engine', 'pug');
 app.set('views', './views')
 
 const port = process.env.PORT || 3000;
-app.listen(port, () => {
+const server = app.listen(port, () => {
   debug('Server started');
   winston.info(`listening on http://localhost:${port}`);
 });
+
+module.exports = server;
